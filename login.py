@@ -24,35 +24,42 @@ def entrar_com_usuario():
         else:
             break
     print("Log in realizado com sucesso!")
-    main.main()
+    main.main(login, coletando_json.u[login]["nome"], senha)
 
-def criar_usuario():
+def criar_usuario(u):
     while True:
         login = input("Digite o nome de login: ")
         if validar_login(login):
             break
         else:
             print("Nome de login deve conter entre 6 a 12 caracteres!")
+
     while True:
         nome = input("Digite seu nome: ")
         if validar_nome(nome):
             break
         else:
             print("Nome não pode conter números!")
+
     while True:
         senha = input("Digite sua senha: ")
         if validar_senha(senha):
             break
         else:
             print("Senha deve conter de 1 a 5 caracteres e somente números!")
-    print(f"nome: {nome}\nusuário: {login}\nsenha: {senha}")
 
-def entrar():
+    coletando_json.adicionar_login(login, nome, senha, u)
+    entrar(u)
+
+
+
+def entrar(u):
     print("1 - Entrar\n2 - Criar usuário")
     escolha_usuario = input()
     match escolha_usuario:
         case '1':
             entrar_com_usuario()
         case '2':
-            criar_usuario()
+            criar_usuario(u)
 
+entrar(coletando_json.u)
