@@ -48,17 +48,10 @@ def main(login, nome, senha):
         case '2':
             exibir_dados_sensores(login, nome, senha)
         case '3':
-            print(f""""
+            print(f"""
 Dados coletados:
 nome - {nome}
 login - {login}
 senha - {senha}
+""")
 
-sensores:""")
-            print("1 - Encerrar\n2 - inicar outra operação")
-            continuar = input()
-            match continuar:
-                case '1':
-                    exit()
-                case '2':
-                    print("foi")

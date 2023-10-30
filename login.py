@@ -10,21 +10,22 @@ def validar_senha(senha):
     return re.match(r'\d{1,5}', senha)
 
 def entrar_com_usuario():
-    while True:
-        login = input("Digite o login: ")
-        if login not in coletando_json.u.keys():
-            print("Usuário inválido!")
-        else:
-            break
 
-    while True:
-        senha = input("Digite sua senha: ")
-        if senha not in coletando_json.u[login].values():
-            print("Senha inválida!")
-        else:
-            break
-    print("Log in realizado com sucesso!")
-    main.main(login, coletando_json.u[login]["nome"], senha)
+        while True:
+            login = input("Digite o login: ")
+            if login not in coletando_json.u.keys() and validar_login(login):
+                print("Usuário inválido!")
+            else:
+                break
+
+        while True:
+            senha = input("Digite sua senha: ")
+            if senha not in coletando_json.u[login].values() and validar_senha(senha):
+                print("Senha inválida!")
+            else:
+                break
+        print("Log in realizado com sucesso!")
+        main.main(login, coletando_json.u[login]["nome"], senha)
 
 def criar_usuario(u):
     while True:
@@ -54,12 +55,18 @@ def criar_usuario(u):
 
 
 def entrar(u):
-    print("1 - Entrar\n2 - Criar usuário")
-    escolha_usuario = input()
-    match escolha_usuario:
-        case '1':
-            entrar_com_usuario()
-        case '2':
-            criar_usuario(u)
+    while True:
+        print("1 - Entrar\n2 - Criar usuário")
+        escolha_usuario = input()
+
+        match escolha_usuario:
+            case '1':
+                entrar_com_usuario()
+                break  # Sai do loop se a escolha for válida
+            case '2':
+                criar_usuario(u)
+                break  # Sai do loop se a escolha for válida
+            case _:
+                print("Digite um número válido!")
 
 entrar(coletando_json.u)
